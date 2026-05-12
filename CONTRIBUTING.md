@@ -38,11 +38,11 @@ This project is a collection of simple, fast developer tools. It is still in an 
 
 ## Contribution Guidelines
 
-- Keep code **simple and readable**.
-- Avoid **unnecessary dependencies**.
-- Follow the **existing project structure**.
-- Keep the **UI consistent**.
-- Do **not** introduce breaking changes without discussion.
+- **Keep it simple**: Write code that is easy for others to read.
+- **Limit dependencies**: Only add new packages if they are absolutely necessary.
+- **Follow the structure**: Place your files in the correct folders (check the README for details).
+- **Reuse UI components**: Always use the components in `src/ui/` and `src/components/tool/` for buttons, textareas, and layouts. This helps keep the design consistent.
+- **Talk to us**: For large changes or new ideas, please open an issue first so we can discuss it together.
 
 ### Linking Issues
 
