@@ -254,20 +254,20 @@ function getStats(rows: DiffRow[]) {
 
 function getCellClass(row: DiffRow, side: "left" | "right") {
   if (row.kind === "added" && side === "right") {
-    return "border-emerald-500/20 bg-emerald-500/10 text-emerald-100";
+    return "border-success-border bg-success-bg text-success";
   }
 
   if (row.kind === "removed" && side === "left") {
-    return "border-red-500/20 bg-red-500/10 text-red-100";
+    return "border-danger-border bg-danger-bg text-danger";
   }
 
   if (row.kind === "changed") {
     return side === "left"
-      ? "border-amber-500/20 bg-amber-500/10 text-amber-100"
-      : "border-blue-500/20 bg-blue-500/10 text-blue-100";
+      ? "border-warning-border bg-warning-bg text-warning"
+      : "border-accent/20 bg-accent-bg text-accent";
   }
 
-  return "border-neutral-800 bg-neutral-950/30 text-neutral-300";
+  return "border-border bg-ground/30 text-secondary";
 }
 
 function DiffCell({
@@ -284,7 +284,7 @@ function DiffCell({
     <div
       className={`grid min-h-10 grid-cols-[4rem_1fr] border-b md:border-b-0 ${getCellClass(row, side)}`}
     >
-      <div className="select-none border-r border-inherit px-3 py-2 text-right font-mono text-xs text-neutral-500">
+      <div className="select-none border-r border-inherit px-3 py-2 text-right font-mono text-xs text-muted">
         {lineNumber ?? ""}
       </div>
       <pre className="custom-scrollbar overflow-x-auto whitespace-pre-wrap break-words px-3 py-2 font-mono text-xs leading-5">
@@ -345,27 +345,27 @@ export default function DiffChecker() {
       )}
 
       <div className="grid gap-3 sm:grid-cols-4">
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-          <div className="text-xs uppercase text-neutral-500">Rows</div>
-          <div className="mt-1 text-2xl font-semibold text-white">{rows.length}</div>
+        <div className="rounded-xl border border-border bg-surface p-4">
+          <div className="text-xs uppercase text-muted">Rows</div>
+          <div className="mt-1 text-2xl font-semibold text-primary">{rows.length}</div>
         </div>
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-          <div className="text-xs uppercase text-neutral-500">Added</div>
-          <div className="mt-1 text-2xl font-semibold text-emerald-300">{stats.added}</div>
+        <div className="rounded-xl border border-border bg-surface p-4">
+          <div className="text-xs uppercase text-muted">Added</div>
+          <div className="mt-1 text-2xl font-semibold text-success">{stats.added}</div>
         </div>
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-          <div className="text-xs uppercase text-neutral-500">Removed</div>
-          <div className="mt-1 text-2xl font-semibold text-red-300">{stats.removed}</div>
+        <div className="rounded-xl border border-border bg-surface p-4">
+          <div className="text-xs uppercase text-muted">Removed</div>
+          <div className="mt-1 text-2xl font-semibold text-danger">{stats.removed}</div>
         </div>
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-          <div className="text-xs uppercase text-neutral-500">Changed</div>
-          <div className="mt-1 text-2xl font-semibold text-amber-300">{stats.changed}</div>
+        <div className="rounded-xl border border-border bg-surface p-4">
+          <div className="text-xs uppercase text-muted">Changed</div>
+          <div className="mt-1 text-2xl font-semibold text-warning">{stats.changed}</div>
         </div>
       </div>
 
-      <section className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
-        <div className="grid border-b border-neutral-800 bg-neutral-950/60 text-sm font-semibold text-neutral-300 md:grid-cols-2">
-          <div className="border-b border-neutral-800 px-4 py-3 md:border-b-0 md:border-r">
+      <section className="overflow-hidden rounded-xl border border-border bg-surface">
+        <div className="grid border-b border-border bg-elevated text-sm font-semibold text-secondary md:grid-cols-2">
+          <div className="border-b border-border px-4 py-3 md:border-b-0 md:border-r">
             Original
           </div>
           <div className="px-4 py-3">Changed</div>
@@ -376,7 +376,7 @@ export default function DiffChecker() {
             {rows.map((row, index) => (
               <div
                 key={`${row.kind}-${row.leftLine ?? "x"}-${row.rightLine ?? "x"}-${index}`}
-                className="grid border-b border-neutral-800 last:border-b-0 md:grid-cols-2"
+                className="grid border-b border-border last:border-b-0 md:grid-cols-2"
               >
                 <DiffCell row={row} side="left" />
                 <DiffCell row={row} side="right" />
@@ -384,14 +384,14 @@ export default function DiffChecker() {
             ))}
           </div>
         ) : (
-          <div className="px-4 py-12 text-center text-sm text-neutral-500">
+          <div className="px-4 py-12 text-center text-sm text-muted">
             Paste text into either panel to compare.
           </div>
         )}
       </section>
 
       {hasInput && totalChanges === 0 && (
-        <p className="text-center text-sm text-emerald-300">
+        <p className="text-center text-sm text-success">
           No differences found.
         </p>
       )}
