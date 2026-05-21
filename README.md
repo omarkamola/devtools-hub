@@ -4,6 +4,9 @@ Welcome to **DevToolsHub**! This is a collection of fast, secure, and easy-to-us
 
 Our goal is to make common developer tasks simpler while keeping your data safe. Everything runs directly in your browser. **Your data never leaves your computer.**
 
+![DevToolsHub Homepage](./public/assets/images/homepage.png)
+*DevToolsHub Home - A fast, local developer toolbox with a gorgeous dark mode interface.*
+
 ---
 
 ## ✨ Features
@@ -16,6 +19,24 @@ Our goal is to make common developer tasks simpler while keeping your data safe.
 - **Timestamp Converter**: Convert between Unix timestamps and readable dates.
 - **UUID Generator**: Create secure, random UUIDs (v4).
 - **Beautiful Dark Mode**: A sleek design that is easy on the eyes.
+
+---
+
+## 📸 App Screenshots
+
+Here is a look at some of the most popular tools available in DevToolsHub:
+
+### 📝 JSON Formatter
+![JSON Formatter](./public/assets/images/json-formatter.png)
+*Format, validate, and beautify raw JSON instantly with syntax highlighting.*
+
+### 🔍 Diff Checker
+![Diff Checker](./public/assets/images/diff-checker.png)
+*Compare text, code, or JSON side-by-side with clear visual indicators for differences.*
+
+### 🆔 UUID Generator
+![UUID Generator](./public/assets/images/uuid-generator.png)
+*Generate cryptographically secure v4 UUIDs in bulk with one click.*
 
 ---
 
@@ -71,7 +92,10 @@ We love new tools! If you want to add one, here is the simplest way:
 
 ## 🤝 Contributing
 
-We welcome contributions of all kinds! Whether it's a bug fix or a new tool, we would love to have your help. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) to get started.
+We welcome contributions of all kinds! Whether it's a bug fix, a new tool, or improving documentation, we would love to have your help. 
+
+* **Good First Issues**: Documentation tasks, screenshot updates, and minor text/styling fixes are perfect first issues for new contributors.
+* **Get Started**: Please see [CONTRIBUTING.md](./CONTRIBUTING.md) to get started with setting up the project and opening a pull request.
 
 ---
 
