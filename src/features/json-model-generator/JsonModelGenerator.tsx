@@ -6,6 +6,7 @@ import SampleButton from "../../ui/SampleButton";
 import Button from "../../ui/Button";
 import { generateModel } from "../../utils/jsonModelGenerator/generateModel";
 import type { JsonModelLanguage } from "../../utils/jsonModelGenerator/types";
+import { LANGUAGE_CONFIG } from "../../constants/languageConfig";
 
 const SAMPLE_JSON = `{
   "id": 1,
@@ -18,6 +19,14 @@ const SAMPLE_JSON = `{
   }
 }`;
 
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Invalid JSON format";
+}
+
 export default function JsonModelGenerator() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
@@ -25,19 +34,36 @@ export default function JsonModelGenerator() {
   const [language, setLanguage] = useState<JsonModelLanguage>("typescript");
 
   const hasInput = input.trim().length > 0;
-  const canUseOutput = output && output !== "Invalid JSON format";
+  const canUseOutput = output && !output.startsWith("Invalid JSON format");
 
   function handleGenerate() {
     try {
+      const parsed = JSON.parse(input);
+
+      //validate the json is not empty
+      if (
+        parsed === null ||
+        typeof parsed !== "object" ||
+        Object.keys(parsed).length === 0
+      ) {
+        setOutput(
+          "Invalid JSON model\n\nPlease enter a JSON object with at least one field.",
+        );
+        return;
+      }
+
+      const formattedInput = JSON.stringify(parsed, null, 2);
+
       const result = generateModel({
-        input,
+        input: formattedInput,
         className,
         language,
       });
 
+      setInput(formattedInput);
       setOutput(result);
-    } catch {
-      setOutput("Invalid JSON format");
+    } catch (error) {
+      setOutput(`Invalid JSON format\n\n${getErrorMessage(error)}`);
     }
   }
 
@@ -52,8 +78,8 @@ export default function JsonModelGenerator() {
       });
 
       setOutput(result);
-    } catch {
-      setOutput("Invalid JSON format");
+    } catch (error) {
+      setOutput(`Invalid JSON format\n\n${getErrorMessage(error)}`);
     }
   }
 
@@ -62,7 +88,7 @@ export default function JsonModelGenerator() {
       return;
     }
 
-    const extension = language === "typescript" ? "ts" : "dart";
+    const extension = LANGUAGE_CONFIG[language].extension;
 
     const file = new Blob([output], {
       type: "text/plain",
@@ -115,8 +141,11 @@ export default function JsonModelGenerator() {
               }
               className="w-full rounded-lg border border-border bg-ground px-4 py-3 font-mono text-primary outline-none transition-colors focus:border-accent/50"
             >
-              <option value="typescript">TypeScript Interface</option>
-              <option value="dart">Dart Class</option>
+              {Object.entries(LANGUAGE_CONFIG).map(([value, config]) => (
+                <option key={value} value={value}>
+                  {config.label}
+                </option>
+              ))}
             </select>
           </label>
         </div>

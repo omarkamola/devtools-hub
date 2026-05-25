@@ -1,4 +1,4 @@
-export type JsonModelLanguage = "typescript" | "dart";
+export type JsonModelLanguage = "typescript" | "dart" | "python";
 
 export type SchemaType =
   | "string"
