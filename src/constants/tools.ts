@@ -8,7 +8,8 @@ export interface Tool {
 export const tools: Tool[] = [
   {
     name: "JSON Formatter",
-    description: "Beautify and validate your JSON data with custom indentation.",
+    description:
+      "Beautify and validate your JSON data with custom indentation.",
     href: "/tools/json-formatter",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6c-2 0-2 3-2 6s0 6 2 6"/><path d="M16 6c2 0 2 3 2 6s0 6-2 6"/><path d="M12 8v8"/></svg>`,
   },
@@ -26,7 +27,8 @@ export const tools: Tool[] = [
   },
   {
     name: "Diff Checker",
-    description: "Compare text side by side and highlight added, removed, and changed lines.",
+    description:
+      "Compare text side by side and highlight added, removed, and changed lines.",
     href: "/tools/diff-checker",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M18 4v16"/><path d="M9 8h4"/><path d="M11 12h4"/><path d="M9 16h6"/></svg>`,
   },
@@ -56,14 +58,22 @@ export const tools: Tool[] = [
   },
   {
     name: "Regex Sandbox",
-    description: "Test and debug regular expressions visually with real-time highlighting and capture groups.",
+    description:
+      "Test and debug regular expressions visually with real-time highlighting and capture groups.",
     href: "/tools/regex-sandbox",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4a10 10 0 0 0 0 16"/><path d="M16 4a10 10 0 0 1 0 16"/><path d="M9 15h.01"/><path d="M14.5 9v6"/><path d="m12 10.5 5 3"/><path d="m17 10.5-5 3"/></svg>`,
   },
   {
     name: "API Tester (Beta)",
-    description: "A lightweight, no-fuss client to send REST API requests and instantly inspect JSON responses.",
+    description:
+      "A lightweight, no-fuss client to send REST API requests and instantly inspect JSON responses.",
     href: "/tools/api-tester",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+  },
+  {
+    name: "JSON Model Generator",
+    description: "Convert JSON into TypeScript interfaces and Dart classes.",
+    href: "/tools/json-model-generator",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6c-2 0-2 3-2 6s0 6 2 6"/><path d="M16 6c2 0 2 3 2 6s0 6-2 6"/><path d="M12 8h.01"/><path d="M12 12h.01"/><path d="M12 16h.01"/></svg>`,
   },
 ];
