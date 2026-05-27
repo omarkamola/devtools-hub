@@ -18,7 +18,7 @@ jobs:
             const author = context.payload.pull_request.user.login;
 
             const message = `### 👋 Hello, @${author}! \n\n` +
-                            `Thank you for your contribution to **DevToolHub**. \n\n` +
+                            `Thank you for your contribution to **DevToolsHub**. \n\n` +
                             `The maintainer has been notified and will review your pull request shortly. If any changes are needed, we will let you know in the comments below.`;
 
             github.rest.issues.createComment({
