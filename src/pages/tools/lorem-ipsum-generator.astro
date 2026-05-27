@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LoremIpsumGeneratorTool from "../../features/lorem-ipsum-generator/LoremIpsumGenerator";
+---
+
+<BaseLayout 
+  title="Lorem Ipsum Generator | Free Online Tool"
+  description="Generate customizable Lorem Ipsum placeholder text by words, sentences, or paragraphs. Free, fast, and fully offline-capable."
+>
+  <h2 class="mb-6 text-2xl font-semibold">
+    Lorem Ipsum Generator
+  </h2>
+
+  <LoremIpsumGeneratorTool client:load />
+</BaseLayout>

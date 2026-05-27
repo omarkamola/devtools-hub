@@ -82,4 +82,26 @@ export const tools: Tool[] = [
     href: "/tools/qr-code-generator",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>`,
   },
+  {
+    name: "Text Case Modifier",
+    description:
+      "Convert text between UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, and kebab-case.",
+    href: "/tools/text-case-modifier",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V6"/><path d="M4 12h8"/><path d="M12 6v12"/><path d="M17 10h4"/><path d="M19 8v4"/><path d="M17 18h4"/></svg>`,
+  },
+  {
+    name: "Text ↔ Binary Converter",
+    description:
+      "Convert plain text to binary (0s and 1s) and binary back to readable text instantly.",
+    href: "/tools/text-to-binary",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="4" height="4" x="2" y="2" rx="1"/><rect width="4" height="4" x="10" y="2" rx="1"/><rect width="4" height="4" x="18" y="2" rx="1"/><rect width="4" height="4" x="2" y="10" rx="1"/><rect width="4" height="4" x="18" y="10" rx="1"/><rect width="4" height="4" x="10" y="18" rx="1"/><rect width="4" height="4" x="18" y="18" rx="1"/></svg>`,
+  },
+  {
+    name: "Lorem Ipsum Generator",
+    description:
+      "Generate customizable Lorem Ipsum placeholder text by words, sentences, or paragraphs.",
+    href: "/tools/lorem-ipsum-generator",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 11h16"/><path d="M4 15h10"/></svg>`,
+  },
 ];
+
