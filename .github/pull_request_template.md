@@ -1,5 +1,3 @@
-<!-- this is a template please edit before submitting -->
-
 ## summary
 
 briefly explain what you changed and why
