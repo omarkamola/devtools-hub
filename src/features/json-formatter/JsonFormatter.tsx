@@ -62,6 +62,7 @@ export default function JsonFormatter() {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-4">
         <ToolTextarea
           label="Input"
           value={input}
@@ -72,6 +73,25 @@ export default function JsonFormatter() {
             <SampleButton onClick={loadSample} />
           }
         />
+
+        {/* Mobile-only sticky action bar */}
+        <div className="md:hidden sticky bottom-4 z-10 bg-surface/95 backdrop-blur-sm border border-border rounded-xl p-3 shadow-lg">
+          <div className="flex gap-2">
+            <Button
+              variant="primary"
+              onClick={formatJson}
+              isDisabled={!hasInput}
+              className="flex-1"
+            >
+              Format JSON
+            </Button>
+            {output && (
+              <Button variant="secondary" onClick={clear}>
+                Clear
+              </Button>
+            )}
+          </div>
+        </div>
 
         <ToolTextarea
           label="Output"
@@ -86,21 +106,24 @@ export default function JsonFormatter() {
         </ToolTextarea>
       </div>
 
-      <ToolActions>
-        <Button 
-          variant="primary" 
-          onClick={formatJson} 
-          isDisabled={!hasInput}
-        >
-          Format JSON
-        </Button>
-
-        {output && (
-          <Button variant="secondary" onClick={clear}>
-            Clear
+      {/* Desktop-only actions */}
+      <div className="hidden md:block">
+        <ToolActions>
+          <Button
+            variant="primary"
+            onClick={formatJson}
+            isDisabled={!hasInput}
+          >
+            Format JSON
           </Button>
-        )}
-      </ToolActions>
+
+          {output && (
+            <Button variant="secondary" onClick={clear}>
+              Clear
+            </Button>
+          )}
+        </ToolActions>
+      </div>
     </div>
   );
 }
