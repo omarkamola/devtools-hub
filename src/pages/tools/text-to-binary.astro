@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TextToBinaryConverterTool from "../../features/text-to-binary/TextToBinaryConverter";
+---
+
+<BaseLayout 
+  title="Text to Binary Converter | Free Online Tool"
+  description="Convert text to binary and binary back to text instantly. Free, offline-capable developer utility. No data sent to servers."
+>
+  <h2 class="mb-6 text-2xl font-semibold">
+    Text ↔ Binary Converter
+  </h2>
+
+  <TextToBinaryConverterTool client:load />
+</BaseLayout>
