@@ -6,6 +6,7 @@ export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState<Tool[]>([]);
   const [isMac, setIsMac] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,15 +57,34 @@ export default function Search() {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
         inputRef.current?.focus();
+        return;
       }
       if (event.key === "Escape") {
         setIsOpen(false);
+        setHighlightedIndex(-1);
         inputRef.current?.blur();
+        return;
+      }
+      if (!isOpen || displayTools.length === 0) return;
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setHighlightedIndex((prev) =>
+          prev < displayTools.length - 1 ? prev + 1 : 0
+        );
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setHighlightedIndex((prev) =>
+          prev > 0 ? prev - 1 : displayTools.length - 1
+        );
+      } else if (event.key === "Enter" && highlightedIndex >= 0) {
+        event.preventDefault();
+        handleSelect(displayTools[highlightedIndex]);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isOpen, displayTools, highlightedIndex]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,7 +114,10 @@ export default function Search() {
           ref={inputRef}
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setHighlightedIndex(-1);
+          }}
           onFocus={() => setIsOpen(true)}
           placeholder="Search tools..."
           className="w-full bg-search-bg border border-border text-primary text-sm rounded-xl py-2.5 pl-10 pr-12 outline-none focus:border-accent/50 focus:ring-4 focus:ring-accent/10 transition-all placeholder:text-muted"
@@ -140,11 +163,13 @@ export default function Search() {
           
           <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
             {displayTools.length > 0 ? (
-              displayTools.map((tool) => (
+              displayTools.map((tool, index) => (
                 <button
                   key={tool.href}
                   onClick={() => handleSelect(tool)}
-                  className="w-full flex items-start gap-3 p-3 text-left hover:bg-search-hover transition-colors group"
+                  className={`w-full flex items-start gap-3 p-3 text-left hover:bg-search-hover transition-colors group ${
+                    highlightedIndex === index ? "bg-search-hover" : ""
+                  }`}
                 >
                   <div 
                     className="size-8 rounded-lg bg-elevated text-muted group-hover:bg-accent group-hover:text-white flex items-center justify-center transition-colors shrink-0"
