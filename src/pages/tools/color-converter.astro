@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ColorConverterTool from "../../features/color-converter/ColorConverter";
+---
+
+<BaseLayout
+  title="Color Converter | HEX, RGB, HSL Online Tool"
+  description="Convert colors between HEX, RGB, HSL, and CSS named colors instantly. Free, fast, and fully offline developer tool. No data sent to servers."
+>
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-white tracking-tight mb-2">
+      Color Converter
+    </h2>
+    <p class="text-neutral-400">
+      Convert colors between HEX, RGB, HSL, and CSS named formats with a live
+      preview.
+    </p>
+  </div>
+
+  <ColorConverterTool client:load />
+</BaseLayout>
