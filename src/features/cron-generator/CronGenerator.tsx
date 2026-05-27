@@ -9,9 +9,9 @@ import {
   type CronFieldValues,
 } from "../../utils/cron/cron";
 
-type Tab = "builder" | "reader" | "validator" | "examples";
+type Tab = "builder" | "reader" | "examples";
 
-const TABS: Tab[] = ["builder", "reader", "validator", "examples"];
+const TABS: Tab[] = ["builder", "reader", "examples"];
 
 const DEFAULT_FIELDS: CronFieldValues = {
   minute: "0",
@@ -180,39 +180,6 @@ export default function CronGenerator() {
             isValid={readerValidation.isValid}
             validationMessage={readerValidation.message}
           />
-        </div>
-      )}
-
-      {activeTab === "validator" && (
-        <div className="space-y-6">
-          <div className="rounded-xl border border-border bg-surface p-4 md:p-6">
-            <div className="mb-5">
-              <h3 className="text-lg font-semibold text-primary">Validator</h3>
-              <p className="mt-1 text-sm text-secondary">
-                Check whether a cron expression is valid.
-              </p>
-            </div>
-
-            <input
-              type="text"
-              value={validatorValue}
-              onChange={(event) => setValidatorValue(event.target.value)}
-              placeholder="*/15 * * * *"
-              className="w-full rounded-lg border border-border bg-ground px-4 py-3 font-mono text-primary outline-none transition-colors focus:border-accent/50"
-            />
-          </div>
-
-          <div className="rounded-xl border border-border bg-surface p-4 md:p-6">
-            <p
-              className={`rounded-lg border px-4 py-3 text-sm font-medium ${
-                validatorResult.isValid
-                  ? "border-success-border bg-success-bg text-success"
-                  : "border-danger-border bg-danger-bg text-danger"
-              }`}
-            >
-              {validatorResult.message}
-            </p>
-          </div>
         </div>
       )}
 
