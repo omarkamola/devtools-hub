@@ -73,6 +73,13 @@ export const tools: Tool[] = [
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6c-2 0-2 3-2 6s0 6 2 6"/><path d="M16 6c2 0 2 3 2 6s0 6-2 6"/><path d="M12 8h.01"/><path d="M12 12h.01"/><path d="M12 16h.01"/></svg>`,
   },
   {
+    name: "Cron Expression Generator",
+    description:
+      "Build, validate, and understand cron expressions with a visual editor and plain English explanations.",
+    href: "/tools/cron-generator",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M4 4l3 3"/><path d="M20 4l-3 3"/></svg>`,
+  },
+];
     name: 'QR Code Generator',
     description: 'Generate QR codes from text or URLs instantly.',
     href: '/tools/qr-code-generator',
