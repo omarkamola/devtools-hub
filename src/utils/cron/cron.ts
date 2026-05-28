@@ -121,7 +121,6 @@ export function validateCronExpression(
 
 export function explainCronExpression(expression: string): string {
   const validation = validateCronExpression(expression);
-
   if (!validation.isValid) {
     return validation.message;
   }
@@ -130,77 +129,178 @@ export function explainCronExpression(expression: string): string {
     .trim()
     .split(/\s+/);
 
-  if (
-    minute === "*" &&
-    hour === "*" &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return "Every minute.";
+  // Helper for field to text
+  function fieldText(
+    field: string,
+    type: "minute" | "hour" | "dayOfMonth" | "month" | "dayOfWeek",
+  ): string {
+    if (field === "*") {
+      switch (type) {
+        case "minute":
+          return "every minute";
+        case "hour":
+          return "every hour";
+        case "dayOfMonth":
+          return "every day";
+        case "month":
+          return "every month";
+        case "dayOfWeek":
+          return "every day of the week";
+      }
+    }
+    if (isStep(field)) {
+      const step = field.replace("*/", "");
+      switch (type) {
+        case "minute":
+          return `every ${step} minutes`;
+        case "hour":
+          return `every ${step} hours`;
+        default:
+          return field;
+      }
+    }
+    if (field.includes(",")) {
+      return field
+        .split(",")
+        .map((f) => fieldText(f, type))
+        .join(", ");
+    }
+    if (field.includes("-")) {
+      const [start, end] = field.split("-");
+      switch (type) {
+        case "minute":
+          return `minutes ${start}-${end}`;
+        case "hour":
+          return `hours ${start}-${end}`;
+        case "dayOfMonth":
+          return `days ${start}-${end}`;
+        case "month":
+          return `months ${start}-${end}`;
+        case "dayOfWeek":
+          return `days ${start}-${end}`;
+      }
+    }
+    if (type === "month") {
+      // 1-based month
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const idx = Number(field) - 1;
+      if (idx >= 0 && idx < 12) return months[idx];
+    }
+    if (type === "dayOfWeek") {
+      return formatDayOfWeek(field);
+    }
+    return field;
   }
 
-  if (
-    isStep(minute) &&
-    hour === "*" &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return `Every ${minute.replace("*/", "")} minutes.`;
+  // Compose readable string
+  let parts: string[] = [];
+
+  // Minute and hour
+  if (minute !== "*" && hour !== "*") {
+    parts.push(`at ${formatTime(hour, minute)}`);
+  } else if (minute !== "*") {
+    parts.push(fieldText(minute, "minute"));
+  } else if (hour !== "*") {
+    parts.push(fieldText(hour, "hour"));
   }
 
-  if (
-    minute === "0" &&
-    hour === "*" &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return "Every hour.";
+  // Day of month
+  if (dayOfMonth !== "*") {
+    parts.push(`on day ${fieldText(dayOfMonth, "dayOfMonth")}`);
   }
 
-  if (
-    minute === "0" &&
-    hour === "0" &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return "Every day at midnight.";
+  // Month
+  if (month !== "*") {
+    parts.push(`in ${fieldText(month, "month")}`);
   }
 
-  if (
-    isNumber(minute) &&
-    isNumber(hour) &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return `Every day at ${formatTime(hour, minute)}.`;
+  // Day of week
+  if (dayOfWeek !== "*") {
+    parts.push(`on ${fieldText(dayOfWeek, "dayOfWeek")}`);
   }
 
-  if (
-    isNumber(minute) &&
-    isNumber(hour) &&
-    dayOfMonth === "*" &&
-    month === "*" &&
-    isNumber(dayOfWeek)
-  ) {
-    return `Every ${formatDayOfWeek(dayOfWeek)} at ${formatTime(hour, minute)}.`;
+  // If nothing specific, fallback to common cases
+  if (parts.length === 0) {
+    if (
+      minute === "*" &&
+      hour === "*" &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return "Every minute.";
+    }
+    if (
+      isStep(minute) &&
+      hour === "*" &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return `Every ${minute.replace("*/", "")} minutes.`;
+    }
+    if (
+      minute === "0" &&
+      hour === "*" &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return "Every hour.";
+    }
+    if (
+      minute === "0" &&
+      hour === "0" &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return "Every day at midnight.";
+    }
+    if (
+      isNumber(minute) &&
+      isNumber(hour) &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return `Every day at ${formatTime(hour, minute)}.`;
+    }
+    if (
+      isNumber(minute) &&
+      isNumber(hour) &&
+      dayOfMonth === "*" &&
+      month === "*" &&
+      isNumber(dayOfWeek)
+    ) {
+      return `Every ${formatDayOfWeek(dayOfWeek)} at ${formatTime(hour, minute)}.`;
+    }
+    if (
+      isNumber(minute) &&
+      isNumber(hour) &&
+      isNumber(dayOfMonth) &&
+      month === "*" &&
+      dayOfWeek === "*"
+    ) {
+      return `Every month on day ${dayOfMonth} at ${formatTime(hour, minute)}.`;
+    }
   }
 
-  if (
-    isNumber(minute) &&
-    isNumber(hour) &&
-    isNumber(dayOfMonth) &&
-    month === "*" &&
-    dayOfWeek === "*"
-  ) {
-    return `Every month on day ${dayOfMonth} at ${formatTime(hour, minute)}.`;
-  }
-
-  return `Runs with minute "${minute}", hour "${hour}", day of month "${dayOfMonth}", month "${month}", and day of week "${dayOfWeek}".`;
+  // Join parts for a readable sentence
+  return "Runs " + parts.join(", ") + ".";
 }
 
 function validateCronField(
