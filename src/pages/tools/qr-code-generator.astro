@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import QrCodeGenerator from "../../features/qr-code-generator/QrCodeGenerator.tsx"
+---
+
+<BaseLayout 
+  title="QR Code Generator | Free Online QR Code Creator"
+  description="Generate QR codes from text or URLs instantly. Free, fast, and fully offline developer tool."
+>
+  <h2 class="mb-6 text-2xl font-semibold">
+    QR Code Generator
+  </h2>
+
+  <QrCodeGenerator client:load />
+</BaseLayout>
