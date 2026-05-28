@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JsonModelGeneratorTool from "../../features/json-model-generator/JsonModelGenerator";
+---
+
+<BaseLayout
+  title="JSON Model Generator | TypeScript Interface & Dart Class Generator"
+  description="Convert JSON into TypeScript interfaces and Dart classes instantly. A fast, free, offline-ready developer tool for generating typed models."
+>
+  <h2 class="mb-6 text-2xl font-semibold">
+    JSON Model Generator
+  </h2>
+
+  <JsonModelGeneratorTool client:load />
+</BaseLayout>

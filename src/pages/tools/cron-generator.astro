@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CronGen from "../../features/cron-generator/CronGenerator";
+---
+
+<BaseLayout
+  title="Cron Expression Generator | Free Online Developer Tool"
+  description="Build, validate, and understand cron expressions. Create schedules visually and translate cron syntax into plain English."
+>
+  <h2 class="mb-6 text-2xl font-semibold">Cron Expression Generator</h2>
+
+  <CronGen client:load />
+</BaseLayout>
