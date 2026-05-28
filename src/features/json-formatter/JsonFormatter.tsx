@@ -9,9 +9,8 @@ export default function JsonFormatter() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
-  const canUseOutput = output && output !== "Invalid JSON format";
-
   const hasInput = input.trim().length > 0;
+  const canUseOutput = output.length > 0 && output !== "Invalid JSON format";
 
   function formatJson() {
     try {
@@ -24,15 +23,10 @@ export default function JsonFormatter() {
 
   function loadSample() {
     const compact = '{"name":"DevToolsHub","version":"1.0.0"}';
+    const parsed = JSON.parse(compact);
 
     setInput(compact);
-
-    try {
-      const parsed = JSON.parse(compact);
-      setOutput(JSON.stringify(parsed, null, 2));
-    } catch {
-      setOutput("Invalid JSON format");
-    }
+    setOutput(JSON.stringify(parsed, null, 2));
   }
 
   function downloadJson() {
@@ -66,11 +60,9 @@ export default function JsonFormatter() {
           label="Input"
           value={input}
           onChange={setInput}
-          placeholder="Paste your JSON here (e.g. {'name': 'DevToolsHub'})"
+          placeholder='Paste your JSON here, for example: {"name":"DevToolsHub"}'
           rows={15}
-          rightLabel={
-            <SampleButton onClick={loadSample} />
-          }
+          rightLabel={<SampleButton onClick={loadSample} />}
         />
 
         <ToolTextarea
@@ -86,21 +78,50 @@ export default function JsonFormatter() {
         </ToolTextarea>
       </div>
 
-      <ToolActions>
-        <Button 
-          variant="primary" 
-          onClick={formatJson} 
-          isDisabled={!hasInput}
-        >
-          Format JSON
-        </Button>
-
-        {output && (
-          <Button variant="secondary" onClick={clear}>
-            Clear
+      <div className="md:hidden sticky bottom-4 z-10 bg-surface/95 backdrop-blur-sm border border-border rounded-xl p-3 shadow-lg">
+        <div className="flex gap-2">
+          <Button
+            variant="primary"
+            onClick={formatJson}
+            isDisabled={!hasInput}
+            className="flex-1"
+          >
+            Format JSON
           </Button>
-        )}
-      </ToolActions>
+
+          {canUseOutput && (
+            <Button variant="secondary" onClick={downloadJson}>
+              Download
+            </Button>
+          )}
+
+          {output && (
+            <Button variant="secondary" onClick={clear}>
+              Clear
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <div className="hidden md:block">
+        <ToolActions>
+          <Button variant="primary" onClick={formatJson} isDisabled={!hasInput}>
+            Format JSON
+          </Button>
+
+          {canUseOutput && (
+            <Button variant="secondary" onClick={downloadJson}>
+              Download
+            </Button>
+          )}
+
+          {output && (
+            <Button variant="secondary" onClick={clear}>
+              Clear
+            </Button>
+          )}
+        </ToolActions>
+      </div>
     </div>
   );
 }

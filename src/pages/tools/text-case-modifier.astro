@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TextCaseModifierTool from "../../features/text-case-modifier/TextCaseModifier";
+---
+
+<BaseLayout 
+  title="Text Case Modifier | Free Online Tool"
+  description="Convert text between UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, and kebab-case. Free, fast, and fully offline-capable."
+>
+  <h2 class="mb-6 text-2xl font-semibold">
+    Text Case Modifier
+  </h2>
+
+  <TextCaseModifierTool client:load />
+</BaseLayout>
